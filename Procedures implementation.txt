@@ -1,0 +1,120 @@
+DELIMITER //
+
+CREATE PROCEDURE GetMaxQuantity(IN productID INT, OUT maxQuantity INT)
+BEGIN
+    SELECT MAX(Quantity) INTO maxQuantity
+    FROM orders
+    WHERE ProductID = productID;
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE ManageBooking(
+    IN orderDate DATE,
+    IN orderPriority VARCHAR(100),
+    IN quantity INT,
+    IN discount DECIMAL(5,2),
+    IN totalCost DECIMAL(10,2),
+    IN profit DECIMAL(13,2),
+    IN productID INT,
+    IN deliveryID INT,
+    IN customerID INT
+)
+BEGIN
+    INSERT INTO orders (OrderDate, OrderPriority, Quantity, Discount, `Total Cost`, Profit, ProductID, DeliveryID, CustomerID)
+    VALUES (orderDate, orderPriority, quantity, discount, totalCost, profit, productID, deliveryID, customerID);
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE UpdateBooking(
+    IN orderID INT,
+    IN orderDate DATE,
+    IN orderPriority VARCHAR(100),
+    IN quantity INT,
+    IN discount DECIMAL(5,2),
+    IN totalCost DECIMAL(10,2),
+    IN profit DECIMAL(13,2),
+    IN productID INT,
+    IN deliveryID INT,
+    IN customerID INT
+)
+BEGIN
+    UPDATE orders
+    SET
+        OrderDate = orderDate,
+        OrderPriority = orderPriority,
+        Quantity = quantity,
+        Discount = discount,
+        `Total Cost` = totalCost,
+        Profit = profit,
+        ProductID = productID,
+        DeliveryID = deliveryID,
+        CustomerID = customerID
+    WHERE OrderID = orderID;
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE AddBooking(
+    IN orderDate DATE,
+    IN orderPriority VARCHAR(100),
+    IN quantity INT,
+    IN discount DECIMAL(5,2),
+    IN totalCost DECIMAL(10,2),
+    IN profit DECIMAL(13,2),
+    IN productID INT,
+    IN deliveryID INT,
+    IN customerID INT
+)
+BEGIN
+    INSERT INTO orders (OrderDate, OrderPriority, Quantity, Discount, `Total Cost`, Profit, ProductID, DeliveryID, CustomerID)
+    VALUES (orderDate, orderPriority, quantity, discount, totalCost, profit, productID, deliveryID, customerID);
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE CancelBooking(IN orderID INT)
+BEGIN
+    DELETE FROM orders WHERE OrderID = orderID;
+END //
+
+DELIMITER ;
